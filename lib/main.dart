@@ -1,4 +1,22 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:simrs_mobile/models/user_model.dart';
+import 'package:simrs_mobile/pages/custom.dart';
+import 'package:simrs_mobile/pages/dashboard.dart';
+import 'package:simrs_mobile/pages/doctor.dart';
+import 'package:simrs_mobile/pages/doctor_profile.dart';
+import 'package:simrs_mobile/pages/facility.dart';
+import 'package:simrs_mobile/pages/gallery.dart';
+import 'package:simrs_mobile/pages/home.dart';
+import 'package:simrs_mobile/pages/post.dart';
+import 'package:simrs_mobile/pages/mitra.dart';
+import 'package:simrs_mobile/pages/post_detail.dart';
+import 'package:simrs_mobile/pages/service.dart';
+import 'colors.dart' as color;
+import 'package:simrs_mobile/pages/login.dart';
+import 'package:simrs_mobile/pages/register.dart';
+import 'package:get/get.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +28,28 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Flutter Demo',
+      // starting point from where app should begin
+      // initialRoute: '/',
+      //when initial Route is given no need to add home widget for initial start point of app
+      //full app route structure
+
+      getPages: [
+        GetPage(name: '/', page: () => const Home()),
+        GetPage(name: '/login', page: () => const Login()),
+        GetPage(name: '/register', page: () => const Register()),
+        GetPage(
+            name: '/dashboard',
+            page: () => Dashboard(
+                  userData: UserModel(),
+                )),
+        GetPage(name: '/gallery', page: () => const Gallery()),
+        GetPage(name: '/facility', page: () => const Facility()),
+        GetPage(name: '/doctor', page: () => const Doctor()),
+        GetPage(name: '/mitra', page: () => const Mitra()),
+        GetPage(name: '/post', page: () => const Post()),
+      ],
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,7 +62,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      debugShowCheckedModeBanner: false,
+      home: const Scaffold(
+        body: Register(),
+      ),
     );
   }
 }
@@ -48,16 +89,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _selectedNavbar = 0;
 
-  void _incrementCounter() {
+  void _changeSelectedNavBar(int index) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
+      _selectedNavbar = index;
     });
   }
 
@@ -69,47 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return const MaterialApp(
+      title: "SIMRS APP",
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Home(),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
