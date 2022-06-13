@@ -201,7 +201,7 @@ class _DashboardState extends State<Dashboard> {
                               icon: FontAwesomeIcons.servicestack,
                               title: "Layanan",
                               isPrimary: true,
-                              routeName: '/facility',
+                              routeName: '/service',
                             ),
                             MenuItem(
                                 icon: FontAwesomeIcons.bedPulse,

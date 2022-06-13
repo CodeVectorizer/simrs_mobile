@@ -10,7 +10,8 @@ import 'package:simrs_mobile/pages/post_detail.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class DoctorProfile extends StatefulWidget {
-  const DoctorProfile({Key? key}) : super(key: key);
+  DoctorModel dataDoctor = DoctorModel();
+  DoctorProfile({Key? key, required this.dataDoctor}) : super(key: key);
 
   @override
   _DoctorProfileState createState() => _DoctorProfileState();
